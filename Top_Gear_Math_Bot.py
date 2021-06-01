@@ -87,4 +87,4 @@ async def reminder():
   bump = client.get_channel(722434817773404192)
   await bump.send("REMINDER TO BUMP THIS SERVER")
 
-client.run("Nzk1NjgzNzc2NDUzMTQ4Njcy.X_M8Qw.HwV0n5dBYVv49_ZRSjJuEtZUVSw")
+client.run("token not gonna be revealed :)")
