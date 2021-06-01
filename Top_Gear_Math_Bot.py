@@ -1,13 +1,15 @@
 import discord
 from discord.ext import commands
+from discord.ext import tasks
 import random
 import os
 
-client = commands.Bot(command_prefix="/", intents=discord.Intents.all())
+client = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Old (better) Top Gear"))
+    reminder.start()
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Old (better) Top Gear")) 
     print("The bot is ready")
 
 @client.command()
@@ -41,7 +43,7 @@ async def unban(ctx,*,member):
       await ctx.send(f"Unbanned {user.mention}")
       return
 
-@client.event  #Event to detect when a user joins
+@client.event  
 async def on_member_join(member):
     id = client.get_guild(705786268340191262)
     general = client.get_channel(795686321883578369)
@@ -80,4 +82,9 @@ async def on_member_join(member):
     mbed.set_thumbnail(url = member.avatar_url)
     await member.send(embed=mbed)
 
-client.run("Nzk1NjgzNzc2NDUzMTQ4Njcy.X_M8Qw.p9tkuTgFcnsr3HfHJRuyrBi2CdY")
+@tasks.loop(hours = 2)
+async def reminder():
+  bump = client.get_channel(722434817773404192)
+  await bump.send("REMINDER TO BUMP THIS SERVER")
+
+client.run("Nzk1NjgzNzc2NDUzMTQ4Njcy.X_M8Qw.HwV0n5dBYVv49_ZRSjJuEtZUVSw")
