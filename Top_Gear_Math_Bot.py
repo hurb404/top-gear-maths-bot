@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.ext import tasks
 import random
 import os
+from discord.utils import get
 
 client = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 
@@ -51,7 +52,7 @@ async def on_member_join(member):
 
 @client.event 
 async def on_member_remove(member):
-    id = client.get_guild(705786268340191262)
+    tgms = client.get_guild(705786268340191262)
     welcome = client.get_channel(795686321883578369)
     await welcome.send(member.mention + " has left the server B(")
 
@@ -84,7 +85,9 @@ async def on_member_join(member):
 
 @tasks.loop(hours = 2)
 async def reminder():
+  tgms = client.get_guild(705786268340191262)
   bump = client.get_channel(722434817773404192)
-  await bump.send("REMINDER TO BUMP THIS SERVER")
+  # mention = discord.Role.mention(849637298755993643)
+  await bump.send(f"{tgms.get_role(849637298755993643).mention}"  f"REMINDER TO BUMP THIS SERVER")
 
-client.run("token not gonna be revealed :)")
+client.run("<insert bot token here - this varies from bot to bot>")
